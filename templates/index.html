@@ -20,51 +20,65 @@
 <!-- ==================== Popular Posts ==================== -->
 <section class="section-margin" style="background-color: white;">
   <div class="container">
-    <h4>Popular Posts:</h4>
     <div class="row">
       {% for post in most_popular_posts %}
-      <div class="col-md-4 mb-4 d-flex">
+      <div class="col-md-6 col-lg-4 mb-4 d-flex">
         <div class="card single-post w-100 d-flex flex-column justify-content-between"
-          style="min-height: 100%; background-color: white;">
+          style="min-height: 100%; background-color: white; border: none; box-shadow: none;">
           <img class="card-img-top" src="{{ post.image_url|default:'/static/img/banner/blog.png' }}"
             alt="{{ post.title }}" style="object-fit: cover; height: 200px;">
-          <div class="card-body text-center d-flex flex-column justify-content-between" style="min-height: 160px;">
+          <div class="card-body text-center d-flex flex-column justify-content-between">
             <h5 class="card-title font-weight-bold">{{ post.title }}</h5>
             <p class="card-text text-muted">{{ post.published_at|date:"F j, Y, g:i a" }}</p>
-          </div>
-          <div class="card-footer bg-transparent text-center border-0">
-            <a href="{% url 'post_detail' post.slug %}" class="btn btn-dark w-75">READ MORE <i
-                class="ti-arrow-right"></i></a>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
-  </div>
-</section>
 
-<!-- ==================== Fresh Posts ==================== -->
-<section class="blog-post-area section-margin mt-4" style="background-color: white;">
-  <div class="container">
-    <h4>Fresh Posts:</h4>
-    {% for post in fresh_posts %}
-    <div class="single-recent-blog-post mb-4" style="background-color: white;">
-      <div class="thumb">
-        <img class="img-fluid" src="{{ post.image_url|default:'/static/img/banner/blog.png' }}" alt="{{ post.title }}"
-          style="object-fit: cover; max-height: 400px; width: 100%;">
-        <ul class="thumb-info" style="max-width: 550px;">
-          <li><i class="ti-user"></i> {{ post.author }}</li>
-          <li><i class="ti-notepad"></i> {{ post.published_at|date:"b j, Y, g:i a" }}</li>
-          <li><i class="ti-themify-favicon"></i> {{ post.comments_amount }} Comments</li>
-        </ul>
+    <!-- ==================== Fresh Posts + Sidebar ==================== -->
+    <div class="row mt-4">
+      <div class="col-lg-8">
+        <div class="blog-post-area">
+          {% for post in fresh_posts %}
+          <div class="single-recent-blog-post mb-4" style="background-color: white;">
+            <div class="thumb">
+              <img class="img-fluid" src="{{ post.image_url|default:'/static/img/banner/blog.png' }}"
+                alt="{{ post.title }}" style="object-fit: cover; max-height: 400px; width: 100%;">
+              <ul class="thumb-info" style="max-width: 550px;">
+                <li><i class="ti-user"></i> {{ post.author }}</li>
+                <li><i class="ti-notepad"></i> {{ post.published_at|date:"b j, Y, g:i a" }}</li>
+                <li><i class="ti-themify-favicon"></i> {{ post.comments_amount }} Comments</li>
+              </ul>
+            </div>
+            <div class="details mt-3">
+              <h3><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
+              <p>{{ post.text|truncatechars:200 }}</p>
+              <a class="button mt-2" href="{% url 'post_detail' post.slug %}">Read More <i
+                  class="ti-arrow-right"></i></a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
-      <div class="details mt-3">
-        <h3><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
-        <p>{{ post.text|truncatechars:200 }}</p>
-        <a class="button mt-2" href="{% url 'post_detail' post.slug %}">Read More <i class="ti-arrow-right"></i></a>
+
+      <!-- ===== Sidebar (ниже популярных постов, сбоку от свежих) ===== -->
+      <div class="col-lg-4">
+        <aside class="single_sidebar_widget newsletter_widget">
+          <h4 class="widget_title">Newsletter</h4>
+          <form action="#">
+            <div class="form-group d-flex flex-column">
+              <input type="email" class="form-control" placeholder="Enter email">
+              <button class="button mt-3" type="submit">SUBSCRIBE</button>
+            </div>
+          </form>
+        </aside>
+
+        <aside class="single_sidebar_widget post_category_widget mt-4">
+          <h4 class="widget_title">Здесь будет реклама</h4>
+        </aside>
       </div>
     </div>
-    {% endfor %}
   </div>
 </section>
 {% endblock %}
