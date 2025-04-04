@@ -1,131 +1,92 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>{{ post.title }}</title>
-    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
-    <link rel="stylesheet" href="{% static 'styles.min.css' %}">
-</head>
+{% block title %}{{ post.title }} | Sensive Blog{% endblock %}
 
-<body>
-    <header class="header_area">
-        <div class="main_menu">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="container box_1620">
-                    <a class="navbar-brand logo_h" href="/"><img src="{% static 'img/logo.png' %}" alt="logo" /></a>
-                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav menu_nav justify-content-center">
-                            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right navbar-social">
-                            <li><a href="#"><i class="ti-facebook"></i></a></li>
-                            <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
-                            <li><a href="#"><i class="ti-instagram"></i></a></li>
-                            <li><a href="#"><i class="ti-skype"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <section class="mb-30px">
-        <div class="container">
-            <div class="hero-banner">
-                <div class="hero-banner__content text-center">
-                    <h3>Blog</h3>
-                    <h1>{{ post.title }}</h1>
-                    <h4>Home - {{ post.title }}</h4>
-                </div>
+{% block content %}
+<section class="mb-30px">
+    <div class="container">
+        <div class="hero-banner">
+            <div class="hero-banner__content text-center">
+                <h3>Blog</h3>
+                <h1>{{ post.title }}</h1>
+                <h4>Home - {{ post.title }}</h4>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="blog-post-area section-margin mt-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 posts-list">
+<section class="blog-post-area section-margin mt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
 
-                    <!-- Изображение поста -->
-                    <div class="feature-img">
-                        {% if post.image_url %}
-                        <img class="img-fluid" src="{{ post.image_url }}" alt="{{ post.title }}">
-                        {% else %}
-                        <img class="img-fluid" src="{% static 'img/banner/blog.png' %}" alt="Default Image">
-                        {% endif %}
+                <!-- Картинка -->
+                <div class="feature-img">
+                    {% if post.image_url %}
+                    <img class="img-fluid" src="{{ post.image_url }}" alt="{{ post.title }}">
+                    {% else %}
+                    <img class="img-fluid" src="{% static 'img/banner/blog.png' %}" alt="Default Image">
+                    {% endif %}
+                </div>
+
+                <!-- Контент -->
+                <div class="blog_details">
+                    <h2>{{ post.title }}</h2>
+                    <ul class="blog-info-link mt-3 mb-4 d-flex align-items-center" style="gap: 15px;">
+                        <li><i class="ti-user"></i> {{ post.author }}</li>
+                        <li><i class="ti-calendar"></i> {{ post.published_at|date:"b. d, Y, P" }}</li>
+                    </ul>
+                    <p>{{ post.text }}</p>
+                </div>
+
+                <!-- Лайки и комменты -->
+                <div class="d-flex justify-content-between mb-4">
+                    <ul class="blog-info-link d-flex align-items-center" style="gap: 30px; list-style: none;">
+                        <li>
+                            <a href="#" class="like-button" data-post-id="{{ post.id }}">
+                                <i class="ti-heart" style="color: red;"></i> {{ post.likes_amount }} people like this
+                            </a>
+                        </li>
+                        <li>
+                            <i class="ti-comments"></i> {{ post.comments|length|stringformat:"02d" }} Comments
+                        </li>
+                    </ul>
+                    <div class="blog-post-social d-flex align-items-center" style="gap: 15px;">
+                        <a href="#"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter"></i></a>
+                        <a href="#"><i class="ti-instagram"></i></a>
+                        <a href="#"><i class="ti-dribbble"></i></a>
                     </div>
+                </div>
 
-                    <!-- Детали поста -->
-                    <div class="blog_details">
-                        <h2>{{ post.title }}</h2>
-                        <ul class="blog-info-link mt-3 mb-4 d-flex align-items-center" style="gap: 15px;">
-                            <li><i class="ti-user"></i> {{ post.author }}</li>
-                            <li><i class="ti-calendar"></i> {{ post.published_at|date:"b. d, Y, P" }}</li>
-                        </ul>
-                        <p>{{ post.text }}</p>
-                    </div>
-
-                    <!-- Лайки и комментарии -->
-                    <div class="d-flex justify-content-between mb-4">
-                        <ul class="blog-info-link d-flex align-items-center" style="gap: 30px; list-style: none;">
-                            <li>
-                                <a href="#" class="like-button" data-post-id="{{ post.id }}">
-                                    <i class="ti-heart" style="color: red;"></i> {{ post.likes_amount }} people like
-                                    this
-                                </a>
-                            </li>
-                            <li>
-                                <i class="ti-comments"></i> {{ post.comments|length|stringformat:"02d" }} Comments
-                            </li>
-                        </ul>
-                        <div class="blog-post-social d-flex align-items-center" style="gap: 15px;">
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-twitter"></i></a>
-                            <a href="#"><i class="ti-instagram"></i></a>
-                            <a href="#"><i class="ti-dribbble"></i></a>
-                        </div>
-                    </div>
-
-                    <!-- Комментарии -->
-                    <div class="comments-area">
-                        <h4>{{ post.comments|length|stringformat:"02d" }} Comments</h4>
-                        {% for comment in post.comments %}
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="desc">
-                                        <h5>{{ comment.author }}</h5>
-                                        <p class="date">{{ comment.published_at|date:"F j, Y \a\\t g:i A" }}</p>
-                                        <p class="comment">{{ comment.text }}</p>
-                                    </div>
-                                </div>
-                                <div class="reply-btn">
-                                    <a href="#" class="btn-reply text-uppercase">Reply</a>
+                <!-- Комментарии -->
+                <div class="comments-area">
+                    <h4>{{ post.comments|length }} Comments</h4>
+                    {% for comment in post.comments %}
+                    <div class="comment-list">
+                        <div class="single-comment justify-content-between d-flex">
+                            <div class="user justify-content-between d-flex">
+                                <div class="desc">
+                                    <h5>{{ comment.author }}</h5>
+                                    <p class="date">{{ comment.published_at|date:"F j, Y \a\\t g:i A" }}</p>
+                                    <p class="comment">{{ comment.text }}</p>
                                 </div>
                             </div>
+                            <div class="reply-btn">
+                                <a href="#" class="btn-reply text-uppercase">Reply</a>
+                            </div>
                         </div>
-                        {% endfor %}
                     </div>
-
+                    {% endfor %}
                 </div>
 
-                <div class="col-lg-4 sidebar-widgets">
-                    <!-- Sidebar -->
-                </div>
+            </div>
+
+            <div class="col-lg-4 sidebar-widgets">
+                <!-- Sidebar можно добавить позже -->
             </div>
         </div>
-    </section>
-
-    <footer class="footer-area">
-        <div class="container">
-            <p class="text-center mt-5">© {{ now|date:"Y" }} Sensive Blog. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="{% static 'scripts.js' %}"></script>
-</body>
-
-</html>
+    </div>
+</section>
+{% endblock %}
