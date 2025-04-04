@@ -87,9 +87,9 @@
         <div class="thumb">
           <img class="img-fluid" src="{{ post.image_url|default:'/static/img/banner/blog.png' }}" alt="{{ post.title }}"
             style="object-fit: cover; max-height: 400px; width: 100%;">
-          <ul class="thumb-info mt-2">
+          <ul class="thumb-info" style="max-width: 550px;">
             <li><i class="ti-user"></i> {{ post.author }}</li>
-            <li><i class="ti-notepad"></i> {{ post.published_at|date:"F j, Y, g:i a" }}</li>
+            <li><i class="ti-notepad"></i> {{ post.published_at|date:"b j, Y, g:i a" }}</li>
             <li><i class="ti-themify-favicon"></i> {{ post.comments_amount }} Comments</li>
           </ul>
         </div>
