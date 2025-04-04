@@ -10,17 +10,11 @@
 </head>
 
 <body>
-
     <header class="header_area">
         <div class="main_menu">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container box_1620">
                     <a class="navbar-brand logo_h" href="/"><img src="{% static 'img/logo.png' %}" alt="logo" /></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav justify-content-center">
                             <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
@@ -38,67 +32,87 @@
         </div>
     </header>
 
-    <!--================ Hero Banner =================-->
     <section class="mb-30px">
         <div class="container">
             <div class="hero-banner">
                 <div class="hero-banner__content text-center">
                     <h3>Blog</h3>
-                    <h1>Blog details</h1>
+                    <h1>{{ post.title }}</h1>
                     <h4>Home - {{ post.title }}</h4>
                 </div>
             </div>
         </div>
     </section>
-    <!--================ Hero Banner End =================-->
 
-    <!--================ Blog Post Area =================-->
     <section class="blog-post-area section-margin mt-4">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="single-recent-blog-post">
-                        <div class="thumb">
-                            {% if post.image_url %}
-                            <img class="img-fluid" src="{{ post.image_url }}" alt="{{ post.title }}">
-                            {% else %}
-                            <img class="img-fluid" src="{% static 'img/banner/blog.png' %}" alt="Заглушка">
-                            {% endif %}
-                        </div>
+                <div class="col-lg-8 posts-list">
 
-                        <div class="details mt-3">
-                            <ul class="blog-info-link mb-3 d-flex flex-wrap" style="gap: 20px;">
-                                <li><i class="ti-user"></i> {{ post.author }}</li>
-                                <li><i class="ti-calendar"></i> {{ post.published_at|date:"b d, Y, P" }}</li>
-                                <li><i class="ti-comments"></i> {{ post.comments|length }} Comments</li>
-                            </ul>
+                    <!-- Изображение поста -->
+                    <div class="feature-img">
+                        {% if post.image_url %}
+                        <img class="img-fluid" src="{{ post.image_url }}" alt="{{ post.title }}">
+                        {% else %}
+                        <img class="img-fluid" src="{% static 'img/banner/blog.png' %}" alt="Default Image">
+                        {% endif %}
+                    </div>
 
-                            <h2>{{ post.title }}</h2>
-                            <p>{{ post.text }}</p>
+                    <!-- Детали поста -->
+                    <div class="blog_details">
+                        <h2>{{ post.title }}</h2>
+                        <ul class="blog-info-link mt-3 mb-4 d-flex align-items-center" style="gap: 15px;">
+                            <li><i class="ti-user"></i> {{ post.author }}</li>
+                            <li><i class="ti-calendar"></i> {{ post.published_at|date:"b. d, Y, P" }}</li>
+                        </ul>
+                        <p>{{ post.text }}</p>
+                    </div>
+
+                    <!-- Лайки и комментарии -->
+                    <div class="d-flex justify-content-between mb-4">
+                        <ul class="blog-info-link d-flex align-items-center" style="gap: 30px; list-style: none;">
+                            <li>
+                                <a href="#" class="like-button" data-post-id="{{ post.id }}">
+                                    <i class="ti-heart"></i> {{ post.likes_amount }} people like this
+                                </a>
+                            </li>
+                            <li>
+                                <i class="ti-comments"></i> {{ post.comments|length|stringformat:"02d" }} Comments
+                            </li>
+                        </ul>
+                        <div class="blog-post-social d-flex align-items-center" style="gap: 15px;">
+                            <a href="#"><i class="ti-facebook"></i></a>
+                            <a href="#"><i class="ti-twitter"></i></a>
+                            <a href="#"><i class="ti-instagram"></i></a>
+                            <a href="#"><i class="ti-dribbble"></i></a>
                         </div>
                     </div>
 
-                    <!-- ================ Комментарии ================= -->
-                    <div class="comment-area mt-5">
-                        <h4>{{ post.comments|length }} Comments</h4>
+                    <!-- Комментарии -->
+                    <div class="comments-area">
+                        <h4>{{ post.comments|length|stringformat:"02d" }} Comments</h4>
                         {% for comment in post.comments %}
                         <div class="comment-list">
                             <div class="single-comment justify-content-between d-flex">
                                 <div class="user justify-content-between d-flex">
                                     <div class="desc">
-                                        <h5><a href="#">{{ comment.author }}</a></h5>
-                                        <p class="date">{{ comment.published_at|date:"b d, Y, P" }}</p>
+                                        <h5>{{ comment.author }}</h5>
+                                        <p class="date">{{ comment.published_at|date:"F j, Y \a\\t g:i A" }}</p>
                                         <p class="comment">{{ comment.text }}</p>
                                     </div>
+                                </div>
+                                <div class="reply-btn">
+                                    <a href="#" class="btn-reply text-uppercase">Reply</a>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
+
                 </div>
 
                 <div class="col-lg-4 sidebar-widgets">
-                    <!-- боковая колонка если надо -->
+                    <!-- Sidebar -->
                 </div>
             </div>
         </div>
