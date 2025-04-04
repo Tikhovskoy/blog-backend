@@ -1,7 +1,116 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head></head>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'styles.min.css' %}">
+</head>
+
 <body>
-    <h1>Страница поста</h1>
+
+    <header class="header_area">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container box_1620">
+                    <a class="navbar-brand logo_h" href="/"><img src="{% static 'img/logo.png' %}" alt="logo" /></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav justify-content-center">
+                            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right navbar-social">
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
+                            <li><a href="#"><i class="ti-skype"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!--================ Hero Banner =================-->
+    <section class="mb-30px">
+        <div class="container">
+            <div class="hero-banner">
+                <div class="hero-banner__content text-center">
+                    <h3>Blog</h3>
+                    <h1>Blog details</h1>
+                    <h4>Home - {{ post.title }}</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================ Hero Banner End =================-->
+
+    <!--================ Blog Post Area =================-->
+    <section class="blog-post-area section-margin mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="single-recent-blog-post">
+                        <div class="thumb">
+                            {% if post.image_url %}
+                            <img class="img-fluid" src="{{ post.image_url }}" alt="{{ post.title }}">
+                            {% else %}
+                            <img class="img-fluid" src="{% static 'img/banner/blog.png' %}" alt="Заглушка">
+                            {% endif %}
+                        </div>
+
+                        <div class="details mt-3">
+                            <ul class="blog-info-link mb-3 d-flex flex-wrap" style="gap: 20px;">
+                                <li><i class="ti-user"></i> {{ post.author }}</li>
+                                <li><i class="ti-calendar"></i> {{ post.published_at|date:"b d, Y, P" }}</li>
+                                <li><i class="ti-comments"></i> {{ post.comments|length }} Comments</li>
+                            </ul>
+
+                            <h2>{{ post.title }}</h2>
+                            <p>{{ post.text }}</p>
+                        </div>
+                    </div>
+
+                    <!-- ================ Комментарии ================= -->
+                    <div class="comment-area mt-5">
+                        <h4>{{ post.comments|length }} Comments</h4>
+                        {% for comment in post.comments %}
+                        <div class="comment-list">
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="desc">
+                                        <h5><a href="#">{{ comment.author }}</a></h5>
+                                        <p class="date">{{ comment.published_at|date:"b d, Y, P" }}</p>
+                                        <p class="comment">{{ comment.text }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-lg-4 sidebar-widgets">
+                    <!-- боковая колонка если надо -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-area">
+        <div class="container">
+            <p class="text-center mt-5">© {{ now|date:"Y" }} Sensive Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'scripts.js' %}"></script>
 </body>
+
 </html>
