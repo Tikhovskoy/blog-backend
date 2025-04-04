@@ -3,162 +3,164 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sensive Blog - Home</title>
-    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
-    <link rel="stylesheet" href="{% static 'styles.min.css' %}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Sensive Blog - Home</title>
+  <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" />
+  <link rel="stylesheet" href="{% static 'styles.min.css' %}" />
 </head>
 
-<body>
-    <!--================Header Menu Area =================-->
-    <header class="header_area">
-        <div class="main_menu">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="container box_1620">
-                    <a class="navbar-brand logo_h" href="/"><img src="{% static 'img/logo.png' %}" alt=""></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav menu_nav justify-content-center">
-                            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right navbar-social">
-                            <li><a href="#"><i class="ti-facebook"></i></a></li>
-                            <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
-                            <li><a href="#"><i class="ti-instagram"></i></a></li>
-                            <li><a href="#"><i class="ti-skype"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+<body style="background-color: white;">
+
+  <header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container box_1620">
+          <a class="navbar-brand logo_h" href="/"><img src="{% static 'img/logo.png' %}" alt="logo" /></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav justify-content-center">
+              <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right navbar-social">
+              <li><a href="#"><i class="ti-facebook"></i></a></li>
+              <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
+              <li><a href="#"><i class="ti-instagram"></i></a></li>
+              <li><a href="#"><i class="ti-skype"></i></a></li>
+            </ul>
+          </div>
         </div>
-    </header>
-    <!--================Header Menu Area =================-->
+      </nav>
+    </div>
+  </header>
 
-    <!--================Hero Banner start =================-->
-    <section class="mb-30px">
-        <div class="container">
-            <div class="hero-banner">
-                <div class="hero-banner__content">
-                    <h3>Tours &amp; Travels</h3>
-                    <h1>Amazing Places on earth</h1>
-                    <h4>December 12, 2018</h4>
-                </div>
-                <img class="img-fluid w-100" src="{% static 'img/banner/hero-banner.png' %}" alt="Hero Banner">
-            </div>
+  <!-- ==================== Hero Banner ==================== -->
+  <section class="mb-30px">
+    <div class="container">
+      <div class="hero-banner">
+        <div class="hero-banner__content text-center">
+          <h3>Tours &amp; Travels</h3>
+          <h1>Amazing Places on earth</h1>
+          <h4>December 12, 2018</h4>
         </div>
-    </section>
-    <!--================Hero Banner end =================-->
+      </div>
+    </div>
+  </section>
 
-    <!--================ Blog Slider Start =================-->
-    <section class="blog-slider section-margin mt-4">
-        <div class="container">
-            <div class="row">
-                {% for post in most_popular_posts %}
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="single-recent-blog-post"
-                        style="border: 1px solid #ddd; border-radius: 10px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                        <div class="thumb" style="overflow: hidden;">
-                            <img class="img-fluid" src="{{ post.image_url }}" alt="{{ post.title }}"
-                                style="width: 100%; height: auto; object-fit: cover;">
-                        </div>
-                        <div class="details mt-3 text-center">
-                            <h3 class="post-title"
-                                style="font-size: 1.2em; font-weight: bold; color: #333; margin-bottom: 10px;">
-                                {{ post.title }}
-                            </h3>
-                            <p class="post-date" style="font-size: 0.9em; color: #777; margin-bottom: 15px;">
-                                {{ post.published_at|date:"F j, Y, g:i a" }}
-                            </p>
-                            <a class="button" href="{% url 'post_detail' post.slug %}"
-                                style="font-size: 0.9em; padding: 8px 15px; border: 2px solid #333; text-decoration: none; color: #333; background-color: #fff; border-radius: 5px; display: inline-block; margin-top: 10px;">
-                                Read More <i class="ti-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+  <!-- ==================== Popular Posts ==================== -->
+  <section class="section-margin" style="background-color: white;">
+    <div class="container">
+      <h4>Popular Posts:</h4>
+      <div class="row">
+        {% for post in most_popular_posts %}
+        <div class="col-md-4 mb-4 d-flex">
+          <div class="card single-post w-100 d-flex flex-column justify-content-between"
+            style="min-height: 100%; background-color: white;">
+            <img class="card-img-top" src="{{ post.image_url|default:'/static/img/banner/blog.png' }}"
+              alt="{{ post.title }}" style="object-fit: cover; height: 200px;">
+            <div class="card-body text-center d-flex flex-column justify-content-between" style="min-height: 160px;">
+              <h5 class="card-title font-weight-bold">{{ post.title }}</h5>
+              <p class="card-text text-muted">{{ post.published_at|date:"F j, Y, g:i a" }}</p>
             </div>
+            <div class="card-footer bg-transparent text-center border-0">
+              <a href="{% url 'post_detail' post.slug %}" class="btn btn-dark w-75">READ MORE <i
+                  class="ti-arrow-right"></i></a>
+            </div>
+          </div>
         </div>
-    </section>
-    <!--================ Blog Slider End =================-->
-    <!--================ Start Footer Area =================-->
-    <footer class="footer-area section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>About Us</h6>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                            ut labore dolore
-                            magna aliqua.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>Newsletter</h6>
-                        <p>Stay update with our latest</p>
-                        <div class="" id="mc_embed_signup">
-                            <form target="_blank" novalidate
-                                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                method="get" class="form-inline">
-                                <div class="d-flex flex-row">
-                                    <input class="form-control" name="EMAIL" placeholder="Enter Email"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-                                        required type="email">
-                                    <button class="click-btn btn btn-default"><span
-                                            class="lnr lnr-arrow-right"></span></button>
-                                    <div style="position: absolute; left: -5000px;">
-                                        <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
-                                            type="text">
-                                    </div>
-                                </div>
-                                <div class="info"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 
-                <div class="col-lg-3 col-md-6 col-sm-6"></div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>Follow Us</h6>
-                        <p>Let us be social</p>
-                        <div class="footer-social d-flex align-items-center">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-dribbble"></i></a>
-                            <a href="#"><i class="fab fa-behance"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                <p class="footer-text m-0">
-                    Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script>
-                    All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
-                    by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                </p>
-            </div>
+  <!-- ==================== Fresh Posts ==================== -->
+  <section class="blog-post-area section-margin mt-4" style="background-color: white;">
+    <div class="container">
+      <h4>Fresh Posts:</h4>
+      {% for post in fresh_posts %}
+      <div class="single-recent-blog-post mb-4" style="background-color: white;">
+        <div class="thumb">
+          <img class="img-fluid" src="{{ post.image_url|default:'/static/img/banner/blog.png' }}" alt="{{ post.title }}"
+            style="object-fit: cover; max-height: 400px; width: 100%;">
+          <ul class="thumb-info mt-2">
+            <li><i class="ti-user"></i> {{ post.author }}</li>
+            <li><i class="ti-notepad"></i> {{ post.published_at|date:"F j, Y, g:i a" }}</li>
+            <li><i class="ti-themify-favicon"></i> {{ post.comments_amount }} Comments</li>
+          </ul>
         </div>
-    </footer>
-    <!--================ End Footer Area =================-->
+        <div class="details mt-3">
+          <h3><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
+          <p>{{ post.text }}</p>
+          <a class="button mt-2" href="{% url 'post_detail' post.slug %}">Read More <i class="ti-arrow-right"></i></a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
 
-    <!--================ JS Scripts =================-->
-    <script src="{% static 'scripts.js' %}"></script>
+  <!-- ==================== Footer ==================== -->
+  <footer class="footer-area section-padding" style="background-color: white;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="single-footer-widget">
+            <h6>About Us</h6>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+              dolore magna aliqua.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="single-footer-widget">
+            <h6>Newsletter</h6>
+            <p>Stay update with our latest</p>
+            <div id="mc_embed_signup">
+              <form target="_blank" novalidate
+                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                method="get" class="form-inline">
+                <div class="d-flex flex-row">
+                  <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Enter Email '" required type="email" />
+                  <button class="click-btn btn btn-default"><span class="lnr lnr-arrow-right"></span></button>
+                </div>
+                <div class="info"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6"></div>
+
+        <div class="col-lg-2 col-md-6 col-sm-6">
+          <div class="single-footer-widget">
+            <h6>Follow Us</h6>
+            <p>Let us be social</p>
+            <div class="footer-social d-flex align-items-center">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-dribbble"></i></a>
+              <a href="#"><i class="fab fa-behance"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
+        <p class="footer-text m-0">
+          Copyright &copy;
+          <script>document.write(new Date().getFullYear());</script>
+          All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+          by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'scripts.js' %}"></script>
 
 </body>
 
