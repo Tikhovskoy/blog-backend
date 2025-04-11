@@ -4,96 +4,104 @@
 {% block title %}{{ post.title }} | Sensive Blog{% endblock %}
 
 {% block content %}
-<section class="mb-30px">
+  <!--================ Hero sm Banner Start =================-->
+  <section class="mb-30px">
     <div class="container">
-        <div class="hero-banner">
-            <div class="hero-banner__content text-center">
-                <h3>Blog</h3>
-                <h1>{{ post.title }}</h1>
-                <h4>Home - {{ post.title }}</h4>
-            </div>
+      <div class="hero-banner hero-banner--sm">
+        <div class="hero-banner__content">
+          <h1>{{ post.title }}</h1>
+          <nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+            </ol>
+          </nav>
         </div>
+      </div>
     </div>
-</section>
+  </section>
+  <!--================ Hero sm Banner End =================-->
 
-<section class="blog-post-area section-margin mt-4">
+  <!--================ Start Blog Post Area =================-->
+  <section class="blog-post-area section-margin">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 posts-list">
-                <div class="feature-img">
-                    {% if post.image_url %}
-                    <img class="img-fluid" src="{{ post.image_url }}" alt="{{ post.title }}">
-                    {% else %}
-                    <img class="img-fluid" src="{% static 'img/banner/blog.png' %}" alt="Default Image">
-                    {% endif %}
-                </div>
+      <div class="row">
+        <div class="col-lg-8 posts-list">
+          <div class="feature-img">
+            {% if post.image_url %}
+              <img class="img-fluid" src="{{ post.image_url }}" alt="{{ post.title }}">
+            {% else %}
+              <img class="img-fluid" src="{% static 'img/banner/blog.png' %}" alt="Default Image">
+            {% endif %}
+          </div>
 
-                <div class="blog_details">
-                    <h2>{{ post.title }}</h2>
-                    <ul class="blog-info-link mt-3 mb-4 d-flex align-items-center" style="gap: 15px;">
-                        <li><i class="ti-user"></i> {{ post.author }}</li>
-                        <li><i class="ti-calendar"></i> {{ post.published_at|date:"b. d, Y, P" }}</li>
-                    </ul>
-                    <p>{{ post.text }}</p>
-                </div>
+          <div class="blog_details">
+            <h2>{{ post.title }}</h2>
+            <ul class="blog-info-link mt-3 mb-4 d-flex align-items-center" style="gap: 15px;">
+              <li><i class="ti-user"></i> {{ post.author }}</li>
+              <li><i class="ti-calendar"></i> {{ post.published_at|date:"b. d, Y, P" }}</li>
+            </ul>
+            <p>{{ post.text }}</p>
+          </div>
 
-                <div class="d-flex justify-content-between mb-4">
-                    <ul class="blog-info-link d-flex align-items-center" style="gap: 30px; list-style: none;">
-                        <li>
-                            <a href="#" class="like-button" data-post-id="{{ post.id }}">
-                                <i class="ti-heart" style="color: red;"></i> {{ post.likes_amount }} people like this
-                            </a>
-                        </li>
-                        <li>
-                            <i class="ti-comments"></i> {{ post.comments|length|stringformat:"02d" }} Comments
-                        </li>
-                    </ul>
-                    <div class="blog-post-social d-flex align-items-center" style="gap: 15px;">
-                        <a href="#"><i class="ti-facebook"></i></a>
-                        <a href="#"><i class="ti-twitter"></i></a>
-                        <a href="#"><i class="ti-instagram"></i></a>
-                        <a href="#"><i class="ti-dribbble"></i></a>
-                    </div>
-                </div>
-
-                <div class="comments-area">
-                    <h4>{{ post.comments|length }} Comments</h4>
-                    {% for comment in post.comments %}
-                    <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="desc">
-                                    <h5>{{ comment.author }}</h5>
-                                    <p class="date">{{ comment.published_at|date:"F j, Y \a\\t g:i A" }}</p>
-                                    <p class="comment">{{ comment.text }}</p>
-                                </div>
-                            </div>
-                            <div class="reply-btn">
-                                <a href="#" class="btn-reply text-uppercase">Reply</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
+          <div class="d-flex justify-content-between mb-4">
+            <ul class="blog-info-link d-flex align-items-center" style="gap: 30px; list-style: none;">
+              <li>
+                <a href="#" class="like-button" data-post-id="{{ post.id }}">
+                  <i class="ti-heart" style="color: red;"></i> {{ post.likes_amount }} people like this
+                </a>
+              </li>
+              <li>
+                <i class="ti-comments"></i> {{ post.comments|length|stringformat:"02d" }} Comments
+              </li>
+            </ul>
+            <div class="blog-post-social d-flex align-items-center" style="gap: 15px;">
+              <a href="#"><i class="ti-facebook"></i></a>
+              <a href="#"><i class="ti-twitter"></i></a>
+              <a href="#"><i class="ti-instagram"></i></a>
+              <a href="#"><i class="ti-dribbble"></i></a>
             </div>
+          </div>
 
-            <!-- ===== Sidebar ===== -->
-            <div class="col-lg-4">
-                <aside class="single_sidebar_widget newsletter_widget">
-                    <h4 class="widget_title">Newsletter</h4>
-                    <form action="#">
-                        <div class="form-group d-flex flex-column">
-                            <input type="email" class="form-control" placeholder="Enter email">
-                            <button class="button mt-3" type="submit">SUBSCRIBE</button>
-                        </div>
-                    </form>
-                </aside>
-
-                <aside class="single_sidebar_widget post_category_widget mt-4">
-                    <h4 class="widget_title">Здесь будет реклама</h4>
-                </aside>
-            </div>
+          <div class="comments-area">
+            <h4>{{ post.comments|length }} Comments</h4>
+            {% for comment in post.comments %}
+              <div class="comment-list">
+                <div class="single-comment justify-content-between d-flex">
+                  <div class="user justify-content-between d-flex">
+                    <div class="desc">
+                      <h5>{{ comment.author }}</h5>
+                      <p class="date">{{ comment.published_at|date:"F j, Y \\a\\t g:i A" }}</p>
+                      <p class="comment">{{ comment.text }}</p>
+                    </div>
+                  </div>
+                  <div class="reply-btn">
+                    <a href="#" class="btn-reply text-uppercase">Reply</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
         </div>
+
+        <!-- ===== Sidebar ===== -->
+        <div class="col-lg-4">
+          <aside class="single_sidebar_widget newsletter_widget">
+            <h4 class="widget_title">Newsletter</h4>
+            <form action="#">
+              <div class="form-group d-flex flex-column">
+                <input type="email" class="form-control" placeholder="Enter email">
+                <button class="button mt-3" type="submit">SUBSCRIBE</button>
+              </div>
+            </form>
+          </aside>
+
+          <aside class="single_sidebar_widget post_category_widget mt-4">
+            <h4 class="widget_title">Здесь будет реклама</h4>
+          </aside>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
+  <!--================ End Blog Post Area =================-->
 {% endblock %}
